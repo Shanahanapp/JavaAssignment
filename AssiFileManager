@@ -1,0 +1,65 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.*;
+
+public class AssiFileManager 
+{
+        // attributes 
+
+	String fileName;
+	File fileExample;
+	Scanner myScanner;
+	
+	// Constructor
+	AssiFileManager (String fileName)
+	{
+		
+		this.fileName = fileName;
+		
+	}
+	
+	// Method to get a connection to the file, before reading or writing 
+	void connectToFile()
+	{
+		fileExample = new File(this.fileName);
+	}
+
+   	
+	// Method to read a  file, returning a string of lines
+	ArrayList<String> readFile()
+	{
+    
+       ArrayList<String> values = new ArrayList<String>();
+	    try
+		{
+	    	// initialise your array
+	    	
+	    	//get a scanner object
+	    	myScanner = new Scanner(fileExample);
+	    	
+	    	//use the scanner to scroll through the lines of the file
+			 while (myScanner.hasNextLine())
+	         {
+			      
+				 values.add(myScanner.nextLine());
+			   }
+		      return values;
+			 
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("run time error " + e.getMessage());
+		}
+
+	    return values;
+
+     }	
+
+    
+    // Method to close a file that was read
+    void closeReadFile()
+    {
+		 myScanner.close();
+    }
+}
