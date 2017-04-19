@@ -1,0 +1,22 @@
+import java.util.*;
+import java.util.Scanner;
+
+public class AssiFileWords 
+{
+	public static void main(String args[])
+	{
+		ArrayList<String> words = new ArrayList();
+		ArrayList<AssiWordOccurence> Occurences = new ArrayList();
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter a filename: ");
+		String filename = scanner.next();
+		
+		AssiFileManager fm 	= new AssiFileManager(filename);
+		fm.connectToFile();
+    	words = fm.readFile();
+    	fm.closeReadFile();
+    	
+    	
+	
+	}
+}
