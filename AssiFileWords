@@ -3,12 +3,9 @@ import java.util.Scanner;
 
 public class AssiFileWords 
 {
-	public static void main(String args[])
+	public static void WordOccurence(String filename)
 	{
 		ArrayList<String> words = new ArrayList();
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter a filename: ");
-		String filename = scanner.next();
 		
 		AssiFileManager fm 	= new AssiFileManager(filename);
 		fm.connectToFile();
@@ -50,12 +47,13 @@ public class AssiFileWords
         	sortedMap.put(entry.getKey(), entry.getValue()); 
         }
 
+        System.out.println("Best guesses for topic of file: ");
         int i=0;
         for (Map.Entry<String, Integer> entry : sortedMap.entrySet())
     	{
         	if(i<10)
         	{
-        		System.out.println("Word " + entry.getKey() + " : Occurences " + entry.getValue());
+        		System.out.println(entry.getKey() + "  (" + entry.getValue() + " uses)");
         		i++;
         	}
         	else break;
@@ -63,3 +61,4 @@ public class AssiFileWords
     }
 	
 }
+
