@@ -12,6 +12,9 @@ public class AssiFileManager
 	Scanner myScanner;
 	String Language;
 	
+	ArrayList<String> EnglishCommonWords = new ArrayList<String>(Arrays.asList("the","and","of","to","be"));
+	ArrayList<String> SpanishCommonWords = new ArrayList<String>(Arrays.asList("el","de","que","y","a"));
+	ArrayList<String> FrenchCommonWords = new ArrayList<String>(Arrays.asList("le","de","un","et","etre"));
 	// Constructor
 	AssiFileManager (String fileName)
 	{
@@ -58,6 +61,47 @@ public class AssiFileManager
 		}
 
 	    return values;
+
+     }
+	
+	String findLang()
+	{
+    
+       ArrayList<String> values = new ArrayList<String>();
+	    try
+		{
+	    	// initialise your array
+	    	
+	    	//get a scanner object
+	    	myScanner = new Scanner(fileExample).useDelimiter("[ ,!?.]+");
+	    	
+	    	//use the scanner to scroll through the lines of the file
+			 while (myScanner.hasNext())
+	         {
+			     String readWord = (myScanner.next());
+			     String strippedWord = readWord.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
+			     if(EnglishCommonWords.contains(strippedWord))
+			     {
+			    	 Language = "English";
+			     }
+			     else if(SpanishCommonWords.contains(strippedWord))
+			     {
+			    	 Language = "Spanish";
+			     }
+			     else if(FrenchCommonWords.contains(strippedWord))
+			     {
+			    	 Language = "French";
+			     }
+			   }
+		      return Language;
+			 
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("run time error " + e.getMessage());
+		}
+
+	    return Language;
 
      }	
 
