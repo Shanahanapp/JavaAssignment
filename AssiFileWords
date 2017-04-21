@@ -6,7 +6,6 @@ public class AssiFileWords
 	public static void main(String args[])
 	{
 		ArrayList<String> words = new ArrayList();
-		ArrayList<AssiWordOccurence> Occurences = new ArrayList();
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter a filename: ");
 		String filename = scanner.next();
@@ -15,8 +14,32 @@ public class AssiFileWords
 		fm.connectToFile();
     	words = fm.readFile();
     	fm.closeReadFile();
+    	HashMap<String, Integer> wordsCnt = new HashMap<String, Integer>();
     	
-    	
-	
-	}
+    	for(int i=0;i<words.size();i++)
+    	{
+    		String curWord = words.get(i);
+    		if(wordsCnt.containsKey(curWord))
+    		{
+    			wordsCnt.put(curWord,wordsCnt.get(curWord) + 1);
+    		}
+    		else
+    		{
+    			wordsCnt.put(curWord, 1);
+    		}
+    	}
+    	int highestVal = 0;
+    	String highestWord = " ";
+    	for (Map.Entry<String, Integer> entry : wordsCnt.entrySet()) 
+    	{
+    		if(entry.getValue() > highestVal)
+    		{
+    			highestVal = entry.getValue();
+    			highestWord = entry.getKey();
+    		}
+    	    System.out.println("Word " + entry.getKey() + " : Occurences " + entry.getValue());
+    	}
+    	System.out.println("The most used word is " + highestWord + " and is used " + highestVal + " times.");
+    }
 }
+
