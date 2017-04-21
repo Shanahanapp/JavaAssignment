@@ -10,6 +10,7 @@ public class AssiFileManager
 	String fileName;
 	File fileExample;
 	Scanner myScanner;
+	String Language;
 	
 	// Constructor
 	AssiFileManager (String fileName)
@@ -36,13 +37,17 @@ public class AssiFileManager
 	    	// initialise your array
 	    	
 	    	//get a scanner object
-	    	myScanner = new Scanner(fileExample);
+	    	myScanner = new Scanner(fileExample).useDelimiter("[ ,!?.]+");
 	    	
 	    	//use the scanner to scroll through the lines of the file
-			 while (myScanner.hasNextLine())
+			 while (myScanner.hasNext())
 	         {
-			      
-				 values.add(myScanner.nextLine());
+			     String readWord = (myScanner.next());
+			     String strippedWord = readWord.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
+			     if(!(strippedWord.equals(""))&&!(strippedWord.equals(" ")))
+			     {
+			    	 values.add(strippedWord);
+			     }
 			   }
 		      return values;
 			 
