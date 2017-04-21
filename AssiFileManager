@@ -13,8 +13,9 @@ public class AssiFileManager
 	String Language;
 	
 	ArrayList<String> EnglishCommonWords = new ArrayList<String>(Arrays.asList("the","and","of","to","be"));
-	ArrayList<String> SpanishCommonWords = new ArrayList<String>(Arrays.asList("el","de","que","y","a"));
-	ArrayList<String> FrenchCommonWords = new ArrayList<String>(Arrays.asList("le","de","un","et","etre"));
+	ArrayList<String> EnglishRestrictedWords = new ArrayList<String>(Arrays.asList("the","and","that","have","been","with","had","was","for","can","are","The"));
+	ArrayList<String> SpanishCommonWords = new ArrayList<String>(Arrays.asList("el","ser","que","y","haber"));
+	ArrayList<String> FrenchCommonWords = new ArrayList<String>(Arrays.asList("le","la","un","et","etre"));
 	// Constructor
 	AssiFileManager (String fileName)
 	{
@@ -47,7 +48,7 @@ public class AssiFileManager
 	         {
 			     String readWord = (myScanner.next());
 			     String strippedWord = readWord.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
-			     if(!(strippedWord.equals(""))&&!(strippedWord.equals(" ")))
+			     if(!(strippedWord.equals(""))&&!(strippedWord.equals(" "))&&!(strippedWord.length()<3)&&!(EnglishRestrictedWords.contains(strippedWord)))
 			     {
 			    	 values.add(strippedWord);
 			     }
