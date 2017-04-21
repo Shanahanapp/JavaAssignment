@@ -28,18 +28,38 @@ public class AssiFileWords
     			wordsCnt.put(curWord, 1);
     		}
     	}
-    	int highestVal = 0;
-    	String highestWord = " ";
-    	for (Map.Entry<String, Integer> entry : wordsCnt.entrySet()) 
-    	{
-    		if(entry.getValue() > highestVal)
-    		{
-    			highestVal = entry.getValue();
-    			highestWord = entry.getKey();
-    		}
-    	    System.out.println("Word " + entry.getKey() + " : Occurences " + entry.getValue());
-    	}
-    	System.out.println("The most used word is " + highestWord + " and is used " + highestVal + " times.");
-    }
-}
 
+    	Set<Map.Entry<String, Integer>> wordsSet = wordsCnt.entrySet();
+    	
+    	Comparator<Map.Entry<String, Integer>> occurenceComparator = new Comparator<Map.Entry<String,Integer>>() 
+    	{ 
+    		public int compare(Map.Entry<String, Integer> occurence1, Map.Entry<String, Integer> occurence2) 
+    		{ 
+    			Integer comp1 = occurence1.getValue();
+    			Integer comp2 = occurence2.getValue(); 
+    			return (comp2).compareTo(comp1); 
+    		} 
+    	};
+    	
+        List<Map.Entry<String, Integer>> MapList = new ArrayList<Map.Entry<String, Integer>>(wordsSet);
+        Collections.sort(MapList, occurenceComparator);
+        LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>(MapList.size());
+
+        for(Map.Entry<String, Integer> entry : MapList)
+        { 
+        	sortedMap.put(entry.getKey(), entry.getValue()); 
+        }
+
+        int i=0;
+        for (Map.Entry<String, Integer> entry : sortedMap.entrySet())
+    	{
+        	if(i<10)
+        	{
+        		System.out.println("Word " + entry.getKey() + " : Occurences " + entry.getValue());
+        		i++;
+        	}
+        	else break;
+    	}
+    }
+	
+}
