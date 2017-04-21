@@ -1,0 +1,24 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.*;
+
+public class AssiControl 
+{
+	public static void main(String[] args)
+	{
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter a filename: ");
+		String filename = scanner.next();
+		AssiFileManager fm 	= new AssiFileManager(filename);
+		fm.connectToFile();
+    	String Language = fm.findLang();
+    	fm.closeReadFile();
+    	System.out.println("This file is written in " +Language);
+		if(Language == "English")
+		{
+			AssiFileWords.WordOccurence(filename);
+		}
+	}
+
+}
