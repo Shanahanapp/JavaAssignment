@@ -5,14 +5,18 @@ public class AssiFileWords
 {
 	public static void WordOccurence(String filename)
 	{
+		//An Array List is created to hold the words from the AssiFileManager class and populated through the readFile method
 		ArrayList<String> words = new ArrayList();
 		
 		AssiFileManager fm 	= new AssiFileManager(filename);
 		fm.connectToFile();
     	words = fm.readFile();
     	fm.closeReadFile();
+    	//A hashmap is created to hold the list of associated words and number of occurrences
     	HashMap<String, Integer> wordsCnt = new HashMap<String, Integer>();
     	
+    	//A loop runs through the array list of words and either adds them to the hashmap if they haven't been used already
+    	//or adds 1 to the number of occurrences of the word if it has been
     	for(int i=0;i<words.size();i++)
     	{
     		String curWord = words.get(i);
@@ -25,7 +29,9 @@ public class AssiFileWords
     			wordsCnt.put(curWord, 1);
     		}
     	}
-
+    	
+    	//The entry set of the hashmap is used so that the vales within the hashmap can be compared in order to sort them
+    	 
     	Set<Map.Entry<String, Integer>> wordsSet = wordsCnt.entrySet();
     	
     	Comparator<Map.Entry<String, Integer>> occurenceComparator = new Comparator<Map.Entry<String,Integer>>() 
@@ -38,6 +44,8 @@ public class AssiFileWords
     		} 
     	};
     	
+    	//A list is made to contain the Entry set of the previous hashmap so it can be sorted by occurrences and put in order into 
+    	// a LinkedHashMap which will keep the order
         List<Map.Entry<String, Integer>> MapList = new ArrayList<Map.Entry<String, Integer>>(wordsSet);
         Collections.sort(MapList, occurenceComparator);
         LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>(MapList.size());
@@ -47,6 +55,8 @@ public class AssiFileWords
         	sortedMap.put(entry.getKey(), entry.getValue()); 
         }
 
+        //The ten most common words and the number of occurrences are printed to the user
+        
         System.out.println("Best guesses for topic of file: ");
         int i=0;
         for (Map.Entry<String, Integer> entry : sortedMap.entrySet())
@@ -61,4 +71,3 @@ public class AssiFileWords
     }
 	
 }
-
