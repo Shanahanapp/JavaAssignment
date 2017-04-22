@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.*;
 
+/*
+ * This class contains the methods required for receiving data from the read file, as well as determining the language
+ */
 public class AssiFileManager 
 {
         // attributes 
@@ -11,12 +14,17 @@ public class AssiFileManager
 	File fileExample;
 	Scanner myScanner;
 	String Language;
+	/*
+	 * A series of array lists are created to contain the 5 most common words unique to each language.
+	 * The words taken from the file can be compared against these lists to see which words it contains.
+	 * A list is also made of many linking words to be taken out from the 10 most used words as these would not be useful
+	 * in determining the topic of the file.
+	 */
 	
 	ArrayList<String> EnglishCommonWords = new ArrayList<String>(Arrays.asList("the","and","of","to","be"));
 	ArrayList<String> EnglishRestrictedWords = new ArrayList<String>(Arrays.asList("the","and","that","have","been","with","had","was","for","can","are","The"));
 	ArrayList<String> SpanishCommonWords = new ArrayList<String>(Arrays.asList("el","ser","que","y","haber"));
 	ArrayList<String> FrenchCommonWords = new ArrayList<String>(Arrays.asList("le","la","un","et","etre"));
-	// Constructor
 	AssiFileManager (String fileName)
 	{
 		
@@ -31,19 +39,20 @@ public class AssiFileManager
 	}
 
    	
-	// Method to read a  file, returning a string of lines
+	/*
+	 * This method takes the Filename the user entered from the AssiControl class,
+	 * It then reads in the file into an Array List one word at a time, stripping out punctuation
+	 * Any words that are blank, too short or part of the restricted words list are then also stripped out
+	 * The words that make it through are added to the Array List which is then returned after the file is finished
+	 */
 	ArrayList<String> readFile()
 	{
     
        ArrayList<String> values = new ArrayList<String>();
 	    try
 		{
-	    	// initialise your array
-	    	
-	    	//get a scanner object
 	    	myScanner = new Scanner(fileExample).useDelimiter("[ ,!?.]+");
 	    	
-	    	//use the scanner to scroll through the lines of the file
 			 while (myScanner.hasNext())
 	         {
 			     String readWord = (myScanner.next());
@@ -65,6 +74,10 @@ public class AssiFileManager
 
      }
 	
+	/*
+	 * This method reads in words one at a time and strips out punctuation but otherwise leaves the words
+	 * It then compares them against the 3 different language's most common words and returns the language it matches
+	 */
 	String findLang()
 	{
     
